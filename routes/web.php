@@ -6,8 +6,13 @@ use App\Http\Controllers\ExamenController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [BlogController::class, "index"]);
-
+Route::post('/blog/{id}' , [BlogController::class, "update"]);
+Route::post('/blog/create' , [BlogController::class, "store"]);
+Route::get('/delete/{id}', [BlogController::class, "destroy"])->name('delete');
 Route::resource('blog', BlogController::class);
+/*Route::resource('blog', BlogController::class)->except(['create', 'edit']);
+Route::resource('blog', BlogController::class)->except(['destroy']);
+Route::resource('blog', BlogController::class)->except(['create']);*/
 
 /*
 Route::get('/', function () {

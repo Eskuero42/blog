@@ -27,7 +27,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return "Soy el método create"; //GET
+        return view('estateagency.home.secciones.post.registrar');
     }
 
     /**
@@ -35,7 +35,11 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        return "Soy el método store";
+        $elPost = new Blog($request->all());
+        $elPost->save();
+        return redirect()->route('blog.index');
+        //dd($request->all());
+        //return "Soy el método store";
     }
 
     /**
@@ -53,7 +57,11 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        return "Soy el método edit";
+        //$elBlog= Blog::find($id);
+        $this->datos['post']= Blog::find($id);
+        $this->datos['mensaje']=Blog::find($id);
+        //dd($elBlog);
+        return view("estateagency.home.secciones.post.edit", $this->datos);
     }
 
     /**
@@ -61,7 +69,11 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "Soy el método update";
+        //return "Soy el método update";
+        $post= Blog::find($id);
+        $post->fill($request->all());
+        $post->save();
+        //return redirect();
     }
 
     /**
@@ -69,6 +81,8 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        return "Soy el método destroy y enviaste: " . $id;
+        $elBlog = Blog::find($id);
+        $elBlog->delete();
+        return redirect()->route('blog.index');
     }
 }
